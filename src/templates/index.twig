@@ -1,0 +1,106 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Front plugin for Craft CMS 3.x
+ *
+ * Front index.twig
+ *
+ * @author    A Digital
+ * @copyright Copyright (c) 2018 A Digital
+ * @link      https://adigital.agency
+ * @package   Front
+ * @since     1.0.0
+ */
+#}
+
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("adigital\\front\\assetbundles\\front\\FrontAsset") %}
+{% do view.registerAssetBundle("adigital\\front\\assetbundles\\conversationscpsection\\ConversationsCPSectionAsset") %}
+
+{# Link for the ? icon at the bottom of the page #}
+{% set docsUrl = "https://github.com/a-digital/front/blob/master/README.md" %}
+
+{# The title of this CP section #}
+{% set title = "Conversations" %}
+
+{# The URL to this plugin's base CP section #}
+{% set pluginCpUrl = url('front') %}
+
+{# Get a URL to an image in our AssetBundle #}
+{% set iconUrl = view.getAssetManager().getPublishedUrl('@adigital/front/assetbundles/conversationscpsection/dist', true) ~ '/img/Conversations-icon.svg' %}
+
+{% block actionButton %}
+    <a href="front/conversation/new" class="btn submit icon add">New Conversation</a>
+{% endblock %}
+
+{# The content of the CP Section#}
+{% set content %}
+    <p>Below is a table of all of your conversations with us. Each of your conversations will have a status indicator which will show the following:</p>
+    <ul>
+        <li><span class="status disabled"></span>New</li>
+        <li><span class="status pending"></span>In Progress</li>
+        <li><span class="status live"></span>Resolved / Awaiting Reply</li>
+    </ul>
+    <p>To view messages within a conversation or add a reply, just click on the subject to open it. If you wish to create a new conversation, this can be done using the button at the top right of the page.</p>
+
+    {% set dateTimeFormat = craft.app.locale.dateTimeFormat('short', 'php') %}
+
+    <div class="tableview">
+        <table class="data fullwidth collapsible">
+            <thead>
+                <tr>
+                    <th scope="col" data-attribute="subject">Subject</th>
+                    <th scope="col" data-attribute="assignee">Assignee</th>
+                    <th scope="col" data-attribute="tags">Tags</th>
+                    <th class="ordered desc" scope="col" data-attribute="lastUpdated">Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set data = craft.front.conversations %}
+                {% if data.error|length %}
+                    <tr>
+                        <td colspan="5">
+                            {% if data.error.message == 'Unknown contact ID alt:email:' ~ currentUser.email %}
+                                We don't currently have your details saved in Front, please create a new conversation and any previous emails should appear here.
+                            {% else %}
+                                Error: {{ data.error.message|default(data.error.title) }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% for conversation in data.conversations|reverse %}
+                    <tr data-id="{{ conversation.id }}">
+                        <td data-title="Subject" data-titlecell="">
+                            {% switch conversation.status %}
+                            {% case "assigned" %}
+                                {% set status = "pending" %}
+                            {% case "unassigned" %}
+                                {% set status = "disabled" %}
+                            {% case "archived" %}
+                                {% set status = "live" %}
+                            {% endswitch %}
+                            <span class="status {{ status }}"></span>
+                            <a href="front/conversation/{{ conversation.id }}">{{ conversation.subject }}</td>
+                        </td>
+                        <td data-title="Assignee" data-attribute="assignee">
+                            {% if conversation.assignee %}
+                                {{ conversation.assignee.first_name }} {{ conversation.assignee.last_name }}
+                            {% else %}
+                                Unassigned
+                            {% endif %}
+                        </td>
+                        <td data-title="Tags" data-attribute="tags">
+                            {% for tag in conversation.tags %}
+                                {{ tag.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td data-title="Last Updated" data-attribute="lastUpdated">{{ conversation.last_message.created_at|split(".")[0]|date(dateTimeFormat) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endset %}
