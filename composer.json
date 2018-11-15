@@ -11,7 +11,7 @@
         "front"
     ],
     "support": {
-        "docs": "https://github.com/a-digital/front/blob/master/README.md",
+        "docs": "https://github.com/a-digital/front/blob/craft3/README.md",
         "issues": "https://github.com/a-digital/front/issues"
     },
     "license": "MIT",
@@ -35,7 +35,7 @@
         "handle": "front",
         "hasCpSettings": true,
         "hasCpSection": true,
-        "changelogUrl": "https://raw.githubusercontent.com/a-digital/front/master/CHANGELOG.md",
+        "changelogUrl": "https://raw.githubusercontent.com/a-digital/front/craft3/CHANGELOG.md",
         "components": {
             "conversation": "adigital\\front\\services\\Conversation"
         },
