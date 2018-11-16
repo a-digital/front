@@ -73,6 +73,7 @@
                 {% for conversation in data.conversations|reverse %}
                     <tr data-id="{{ conversation.id }}">
                         <td data-title="Subject" data-titlecell="">
+                            {% set status = "" %}
                             {% switch conversation.status %}
                             {% case "assigned" %}
                                 {% set status = "pending" %}
