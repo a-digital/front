@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.4 - 2018-11-30
+### Added
+- Updated to allow front end submissions by guest accounts in forms
+
+### Changed
+- Removed reverse filter now that front api ordering is fixed
+- Added body formatting if it is an array
+
 ## 1.0.3 - 2018-11-16
 ### Fixed
 - Resolved status undefined error if a message thread was deleted rather than archived
