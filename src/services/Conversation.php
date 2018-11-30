@@ -223,6 +223,21 @@ class Conversation extends Component
         if ($mailbox === false) {
             return false;
         }
+        $body = $request->getParam('body');
+        if (is_array($body)) {
+		    $formattedBody = "";
+		    foreach($body as $field => $value) {
+			    if (isset($value) && $value <> '') {
+				    if (is_numeric($field)) {
+					    $formattedBody .= '<p>'.$value.'</p>';
+				    } else {
+					    $field = ucwords(preg_replace('~(\p{Ll})(\p{Lu})~u','${1} ${2}', $field));
+					    $formattedBody .= '<p>'.$field.": ".$value.'</p>';
+				    }
+			    }
+		    }
+		    $body = $formattedBody;
+	    }
         $posted = [
             'sender' => [
                 'handle' => $userEmail,
@@ -232,7 +247,7 @@ class Conversation extends Component
                 $mailbox
             ],
             'subject' => $request->getParam('subject'),
-            'body' => $request->getParam('body'),
+            'body' => $body,
             'body_format' => 'html',
             'external_id' => date('Y-m-d H:i:s').' '.$userId,
             'created_at' => time(),
