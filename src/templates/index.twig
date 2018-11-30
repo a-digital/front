@@ -70,7 +70,7 @@
                         </td>
                     </tr>
                 {% endif %}
-                {% for conversation in data.conversations|reverse %}
+                {% for conversation in data.conversations %}
                     <tr data-id="{{ conversation.id }}">
                         <td data-title="Subject" data-titlecell="">
                             {% set status = "" %}
