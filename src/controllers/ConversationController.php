@@ -59,7 +59,11 @@ class ConversationController extends Controller
      */
     public function actionIndex()
     {
-        return 'Welcome to the ConversationController actionIndex() method';
+        $request = Craft::$app->getRequest();
+        $method = $request->getParam('redirect');
+        Front::$plugin->conversation->conversationReply($request);
+		$method = $request->getParam('success');
+        return $this->redirect($method);
     }
 
     /**

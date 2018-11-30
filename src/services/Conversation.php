@@ -207,13 +207,26 @@ class Conversation extends Component
         $settings = Front::$plugin->getSettings();
         $method = 'inboxes/'.$settings->inbox.'/imported_messages';
         $mailbox = self::getMailboxById($settings->inbox);
+        $userId = '';
+        $userEmail = '';
+        $userFirstName = '';
+        $userLastName = '';
+        if (Craft::$app->user->identity) {
+	        $userId = Craft::$app->user->identity->id;
+	        $userEmail = Craft::$app->user->identity->email;
+	        $userName = Craft::$app->user->identity->firstName.' '.Craft::$app->user->identity->lastName;
+        } else {
+	        $userId = 'guest';
+	        $userEmail = $request->getParam('email');
+	        $userName = $request->getParam('name');
+        }
         if ($mailbox === false) {
             return false;
         }
         $posted = [
             'sender' => [
-                'handle' => Craft::$app->user->identity->email,
-                'name' => Craft::$app->user->identity->firstName.' '.Craft::$app->user->identity->lastName
+                'handle' => $userEmail,
+                'name' => $userName
             ],
             'to' => [
                 $mailbox
@@ -221,12 +234,12 @@ class Conversation extends Component
             'subject' => $request->getParam('subject'),
             'body' => $request->getParam('body'),
             'body_format' => 'html',
-            'external_id' => date('Y-m-d H:i:s').' '.Craft::$app->user->id,
+            'external_id' => date('Y-m-d H:i:s').' '.$userId,
             'created_at' => time(),
             'metadata' => [
                 'is_inbound' => true,
                 'is_archived' => false,
-                'thread_ref' => Craft::$app->user->identity->email.' - '.$request->getParam('subject')
+                'thread_ref' => $userEmail.' - '.$request->getParam('subject')
             ]
         ];
         $tag = $request->getParam('tag');
