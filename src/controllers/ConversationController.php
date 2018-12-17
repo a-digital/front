@@ -76,7 +76,7 @@ class ConversationController extends Controller
     {
         $request = Craft::$app->getRequest();
         Front::$plugin->conversation->conversationReply($request);
-        $response = '<p>Success:</p><p>Thank you for submitting a message with us. You can <a href="/'.Craft::$app->getConfig()->cpTrigger.'/front" target="_blank">view your conversations here</a> and we shall get back to you shortly with a response.</p>';
+        $response = '<p>Success:</p><p>Thank you for submitting a message with us. You can <a href="/'.Craft::$app->getConfig()->general->cpTrigger.'/front" target="_blank">view your conversations here</a> and we shall get back to you shortly with a response.</p>';
         return $response;
     }
 
