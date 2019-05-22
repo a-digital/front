@@ -83,7 +83,7 @@ class Front_ConversationService extends BaseApplicationComponent
      */
     public function getConversations()
     {
-        $email = Craft::$app->user->identity->email;
+        $email = craft()->userSession->getUser()->email;
         $method = 'contacts/alt:email:'.$email.'/conversations';
         $data = $this->curlWrap($method);
         $returned = [
