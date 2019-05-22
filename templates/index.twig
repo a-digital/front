@@ -29,7 +29,7 @@
 {% set pluginCpUrl = url('front') %}
 
 {# Get a URL to an image in our AssetBundle #}
-{% set iconUrl = view.getAssetManager().getPublishedUrl('@adigital/front/assetbundles/conversationscpsection/dist', true) ~ '/img/Conversations-icon.svg' %}
+{% set iconUrl = '/cms/resources/front/icon.svg' %}
 
 {% block actionButton %}
     <a href="front/conversation/new" class="btn submit icon add">New Conversation</a>
