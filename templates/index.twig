@@ -16,8 +16,8 @@
 {% extends "_layouts/cp" %}
 {% import "_includes/forms" as forms %}
 
-{% do view.registerAssetBundle("adigital\\front\\assetbundles\\front\\FrontAsset") %}
-{% do view.registerAssetBundle("adigital\\front\\assetbundles\\conversationscpsection\\ConversationsCPSectionAsset") %}
+{% includeCssResource "front/css/Front_Style.css" %}
+{% includeJsResource "front/js/Front_Script.js" %}
 
 {# Link for the ? icon at the bottom of the page #}
 {% set docsUrl = "https://github.com/a-digital/front/blob/craft3/README.md" %}
