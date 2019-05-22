@@ -1,3 +1,4 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
 {#
 /**
  * Front plugin for Craft CMS
@@ -11,3 +12,61 @@
  * @since     0.0.1
  */
 #}
+
+{% import "_includes/forms" as forms %}
+{% set iconUrl = view.getAssetManager().getPublishedUrl('@adigital/front/assetbundles/conversationswidget/dist', true) ~ '/img/Conversations-icon.svg' %}
+
+<div>
+    <div class="widget-icon">
+        <img src="{{ iconUrl }}" height="50" width="50" />
+    </div>
+    <div class="widget-header">
+        <p>To send us a new message or request help with a problem, please complete the form below.</p>
+        <p>You'll receive updates by email, as well as being able to see and reply to messages from the <a href="/{{ craft.app.config.general.cpTrigger }}/front">conversations</a> page.</p>
+    </div>
+</div>
+
+<form id="frontWidgetForm" enctype="multipart/form-data" method="post" accept-charset="UTF-8">
+    {{ csrfInput() }}
+
+    {% set tags = craft.front.tags %}
+    {% if tags %}
+        {{ forms.selectField({
+            label: 'Message Type',
+            id: 'tag',
+            name: 'tag',
+            instructions: "Please indicate the type of message you're sending.",
+            options: tags
+        }) }}
+    {% endif %}
+
+    {{ forms.textField({
+        label: 'Subject',
+        instructions: 'Please summarise your message in a few words.',
+        name: 'subject',
+        value: ''
+    }) }}
+
+    {{ craft.front.redactorField({
+        label: 'Message',
+        instructions: "Please provide as much detail as possible. If you've found an error, please list the steps we need to take to replicate it.",
+        name: 'body',
+        rows: 4,
+        value: ''
+    })|raw }}
+
+    <div class="field">
+        <div class="heading">
+            <label>Attachments</label>
+            <div class="instructions">
+                <p>Add any relevant files or screenshots</p>
+            </div>
+        </div>
+        <div class="input ltr">
+            <input name="attachments[]" type="file" multiple>
+        </div>
+    </div>
+
+    <input type="submit" class="btn submit" name="frontSubmit" value="{{ 'Send'|t }}" />
+    <div name="loadingSpinner" class="loadingSpinner"></div>
+</form>

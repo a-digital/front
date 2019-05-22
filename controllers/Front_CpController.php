@@ -39,8 +39,66 @@ class Front_CpController extends BaseController
 
     /**
      * Handle a request going to our plugin's index action URL, e.g.: actions/front
+     *
+     * @return mixed
      */
     public function actionIndex()
     {
+        $variables = [];
+        $variables['crumbs'] = [
+            [
+                'label' => "Front",
+                'url' => UrlHelper::cpUrl('front')
+            ]
+        ];
+
+        return $this->renderTemplate('front/index', $variables);
+    }
+
+    /**
+     * Handle a request going to our plugin's index action URL, e.g.: actions/front/conversation
+     *
+     * @param string $subSection
+     * @return
+     */
+    public function actionConversation(string $subSection = 'overview')
+    {
+        $variables = [];
+        $variables['crumbs'] = [
+            [
+                'label' => "Front",
+                'url' => UrlHelper::cpUrl('front')
+            ],
+            [
+                'label' => "Conversations",
+                'url' => UrlHelper::cpUrl('front')
+            ]
+        ];
+
+        $variables["conversationId"] = $subSection;
+
+        return $this->renderTemplate('front/conversation/detail', $variables);
+    }
+
+    /**
+     * Handle a request going to our plugin's index action URL, e.g.: actions/front/newConversation
+     *
+     * @return mixed
+     */
+    public function actionNewConversation()
+    {
+        $variables = [];
+        $variables['crumbs'] = [
+            [
+                'label' => "Front",
+                'url' => UrlHelper::cpUrl('front')
+            ],
+            [
+                'label' => "Conversations",
+                'url' => UrlHelper::cpUrl('front')
+            ]
+        ];
+
+        return $this->renderTemplate('front/conversation/new', $variables);
     }
 }

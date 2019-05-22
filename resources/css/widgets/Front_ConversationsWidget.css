@@ -9,3 +9,15 @@
  * @package   Front
  * @since     0.0.1
  */
+
+.widget-icon {
+    display: inline-block;
+    width: 20%;
+    vertical-align: top;
+}
+
+.widget-header {
+    display: inline-block;
+    width: 78%;
+    vertical-align: top;
+}

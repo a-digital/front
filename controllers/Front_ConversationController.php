@@ -39,8 +39,53 @@ class Front_ConversationController extends BaseController
 
     /**
      * Handle a request going to our plugin's index action URL, e.g.: actions/front
+     *
+     * @return mixed
      */
     public function actionIndex()
     {
+        $request = Craft::$app->getRequest();
+        $method = $request->getParam('redirect');
+        Front::$plugin->conversation->conversationReply($request);
+        $method = $request->getParam('success');
+        return $this->redirect($method);
+    }
+
+    /**
+     * Handle a request going to our plugin's submitWidget action URL, e.g.: actions/front/submitWidget
+     *
+     * @return string
+     */
+    public function actionSubmitWidget(): string
+    {
+        $request = Craft::$app->getRequest();
+        Front::$plugin->conversation->conversationReply($request);
+        $response = '<p>Success:</p><p>Thank you for submitting a message with us. You can <a href="/'.Craft::$app->getConfig()->general->cpTrigger.'/front" target="_blank">view your conversations here</a> and we shall get back to you shortly with a response.</p>';
+        return $response;
+    }
+
+    /**
+     * Handle a request going to our plugin's createNew action URL, e.g.: actions/front/createNew
+     *
+     * @return mixed
+     */
+    public function actionCreateNew()
+    {
+        $request = Craft::$app->getRequest();
+        Front::$plugin->conversation->conversationReply($request);
+        return $this->redirect("/".Craft::$app->getConfig()->general->cpTrigger."/front");
+    }
+
+    /**
+     * Handle a request going to our plugin's addReply action URL, e.g.: actions/front/addReply
+     *
+     * @return mixed
+     */
+    public function actionAddReply()
+    {
+        $request = Craft::$app->getRequest();
+        $id = $request->getParam('conversation');
+        Front::$plugin->conversation->conversationReply($request);
+        return $this->redirect("/".Craft::$app->getConfig()->general->cpTrigger."/front/conversation/".$id);
     }
 }

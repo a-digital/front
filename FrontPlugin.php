@@ -70,9 +70,9 @@ class FrontPlugin extends BasePlugin
      *
      * @return string
      */
-    public function getDocumentationUrl()
+    public function getDocumentationUrl(): string
     {
-        return 'https://github.com/a-digital/front/blob/master/README.md';
+        return 'https://github.com/a-digital/front/blob/craft2/README.md';
     }
 
     /**
@@ -82,9 +82,9 @@ class FrontPlugin extends BasePlugin
      *
      * @return string
      */
-    public function getReleaseFeedUrl()
+    public function getReleaseFeedUrl(): string
     {
-        return 'https://raw.githubusercontent.com/a-digital/front/master/releases.json';
+        return 'https://raw.githubusercontent.com/a-digital/front/craft2/releases.json';
     }
 
     /**
@@ -92,7 +92,7 @@ class FrontPlugin extends BasePlugin
      *
      * @return string
      */
-    public function getVersion()
+    public function getVersion(): string
     {
         return '0.0.1';
     }
@@ -105,7 +105,7 @@ class FrontPlugin extends BasePlugin
      *
      * @return string
      */
-    public function getSchemaVersion()
+    public function getSchemaVersion(): string
     {
         return '0.0.1';
     }
@@ -115,7 +115,7 @@ class FrontPlugin extends BasePlugin
      *
      * @return string
      */
-    public function getDeveloper()
+    public function getDeveloper(): string
     {
         return 'A Digital';
     }
@@ -125,7 +125,7 @@ class FrontPlugin extends BasePlugin
      *
      * @return string
      */
-    public function getDeveloperUrl()
+    public function getDeveloperUrl(): string
     {
         return 'https://adigital.agency';
     }
@@ -135,40 +135,48 @@ class FrontPlugin extends BasePlugin
      *
      * @return bool
      */
-    public function hasCpSection()
+    public function hasCpSection(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Called right before your plugin’s row gets stored in the plugins database table, and tables have been created
      * for it based on its records.
+     *
+     * @return void
      */
-    public function onBeforeInstall()
+    public function onBeforeInstall(): void
     {
     }
 
     /**
      * Called right after your plugin’s row has been stored in the plugins database table, and tables have been
      * created for it based on its records.
+     *
+     * @return void
      */
-    public function onAfterInstall()
+    public function onAfterInstall(): void
     {
     }
 
     /**
      * Called right before your plugin’s record-based tables have been deleted, and its row in the plugins table
      * has been deleted.
+     *
+     * @return void
      */
-    public function onBeforeUninstall()
+    public function onBeforeUninstall(): void
     {
     }
 
     /**
      * Called right after your plugin’s record-based tables have been deleted, and its row in the plugins table
      * has been deleted.
+     *
+     * @return void
      */
-    public function onAfterUninstall()
+    public function onAfterUninstall(): void
     {
     }
 
@@ -177,10 +185,11 @@ class FrontPlugin extends BasePlugin
      *
      * @return array
      */
-    protected function defineSettings()
+    protected function defineSettings(): array
     {
         return array(
-            'someSetting' => array(AttributeType::String, 'label' => 'Some Setting', 'default' => ''),
+            'jsonWebToken' => array(AttributeType::String, 'label' => 'JSON Web Token', 'default' => ''),
+            'inbox' => array(AttributeType::String, 'label' => 'Inbox', 'default' => ''),
         );
     }
 

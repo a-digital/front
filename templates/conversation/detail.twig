@@ -1,0 +1,118 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Front plugin for Craft CMS
+ *
+ * Front conversation/detail.twig
+ *
+ * @author    A Digital
+ * @copyright Copyright (c) 2019 A Digital
+ * @link      https://adigital.agency
+ * @package   Front
+ * @since     0.0.1
+ */
+#}
+
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("adigital\\front\\assetbundles\\front\\FrontAsset") %}
+{% do view.registerAssetBundle("adigital\\front\\assetbundles\\conversationscpsection\\ConversationsCPSectionAsset") %}
+
+{# Link for the ? icon at the bottom of the page #}
+{% set docsUrl = "https://github.com/a-digital/front/blob/craft3/README.md" %}
+
+{% set conversation = craft.front.getConversation(conversationId) %}
+
+{# The title of this CP section #}
+{% set status = "" %}
+{% switch conversation.status %}
+{% case "assigned" %}
+    {% set status = "pending" %}
+{% case "unassigned" %}
+    {% set status = "disabled" %}
+{% case "archived" %}
+    {% set status = "live" %}
+{% endswitch %}
+{% set title = conversation.subject %}
+{% block pageTitle %}
+    <span class="status {{ status }}"></span>
+    <h1>{{ conversation.subject }}</h1>
+{% endblock %}
+
+{# The URL to this plugin's base CP section #}
+{% set pluginCpUrl = url('front') %}
+
+{# Get a URL to an image in our AssetBundle #}
+{% set iconUrl = view.getAssetManager().getPublishedUrl('@adigital/front/assetbundles/conversationscpsection/dist', true) ~ '/img/Conversations-icon.svg' %}
+
+{# The content of the CP Section #}
+{% set content %}
+    {% set data = craft.front.getConversationMessages(conversationId) %}
+    {% if data.error|length %}
+        <tr>
+            <td colspan="5">Error: {{ data.error.message|default(data.error.title) }}</td>
+        </tr>
+    {% endif %}
+    {% set dateTimeFormat = craft.app.locale.dateTimeFormat('short', 'php') %}
+    {% set dateTimeFormat = "jS F Y g:i A" %}
+    {% for message in data.messages|reverse %}
+        <div class="message-container">
+            <div class="subject-container">
+                {% set fromAddress = message.recipients|first %}
+                <div class="recipient-container">
+                    <b>From</b>: {{ fromAddress.handle }}
+                    <span class="message-recipients {% if not loop.last %}hidden{% endif %}">
+                        <br>
+                        {% for recipient in message.recipients %}
+                            {% if not loop.first %}
+                                {% if recipient.role != role %}
+                                    <b>{{ recipient.role|ucwords }}:</b>
+                                {% endif %}
+                                {{ recipient.handle }}
+                            {% endif %}
+                            {% set role = recipient.role %}
+                        {% endfor %}
+                    </span>
+                    <div class="message-subject {% if loop.last %}hidden{% endif %}">
+                        <p>{{ message.blurb }}</p>
+                    </div>
+                </div>
+                <div class="message-date">{{ message.created_at|split('.')[0]|date(dateTimeFormat)|replace({'.': ''}) }}</div>
+            </div>
+            <div class="message-contents {% if not loop.last %}hidden{% endif %}">
+                <div class="message-body {% if loop.last %}last-body{% endif %}">
+                    {{ message.body|raw }}
+                </div>
+                {% if loop.last %}
+                    <div class="reply-prompt">
+                        Reply
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    <div class="message-container reply-box hidden">
+        <div class="subject-container">
+            <div class="recipient-container">
+                <div class="message-recipients"><b>From</b>: {{ currentUser.email }}</div>
+            </div>
+            <div class="new-message-date">New Message</div>
+        </div>
+        <div class="reply-contents">
+            <form>
+                <input type="hidden" name="action" value="front/conversation/add-reply">
+                <input type="hidden" name="conversation" value="{{ conversationId }}">
+                <input type="hidden" name="subject" value="{{ conversation.subject }}">
+                {{ craft.front.redactorField({
+                    label: 'Message',
+                    instructions: "Type out your reply in the field below.",
+                    name: 'body',
+                    rows: 4,
+                    value: ''
+                })|raw }}
+                <input type="submit" class="btn submit" value="{{ 'Send'|t('front') }}">
+            </form>
+        </div>
+    </div>
+{% endset %}

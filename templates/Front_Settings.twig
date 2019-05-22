@@ -1,3 +1,4 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
 {#
 /**
  * Front plugin for Craft CMS
@@ -18,9 +19,36 @@
 {% includeJsResource "front/js/Front_Script.js" %}
 
 {{ forms.textField({
-    label: 'Some Setting',
-    instructions: 'Enter some setting here.',
-    id: 'someSetting',
-    name: 'someSetting', 
-    value: settings['someSetting']})
-}}
+    label: 'JSON Web Token',
+    instructions: 'Enter your json web token here.',
+    id: 'jsonWebToken',
+    name: 'jsonWebToken',
+    value: settings['jsonWebToken']
+}) }}
+
+{% if settings['jsonWebToken']|length %}
+    {% set data = craft.front.mailboxes %}
+    {% set mailboxes = [
+        {
+            label: "Please select...",
+            value: ''
+        }
+    ] %}
+    {% for mailbox in data.mailboxes %}
+        {% set mailboxes = mailboxes|merge([
+            {
+                label: mailbox.name,
+                value: mailbox.id
+            }
+        ]) %}
+    {% endfor %}
+
+    {{ forms.selectField({
+        label: 'Inbox',
+        instructions: 'Select your inbox here.',
+        id: 'inbox',
+        name: 'inbox',
+        options: mailboxes,
+        value: settings['inbox']
+    }) }}
+{% endif %}

@@ -1,0 +1,86 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Front plugin for Craft CMS
+ *
+ * Front conversation/new.twig
+ *
+ * @author    A Digital
+ * @copyright Copyright (c) 2019 A Digital
+ * @link      https://adigital.agency
+ * @package   Front
+ * @since     0.0.1
+ */
+#}
+
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("adigital\\front\\assetbundles\\front\\FrontAsset") %}
+{% do view.registerAssetBundle("adigital\\front\\assetbundles\\conversationscpsection\\ConversationsCPSectionAsset") %}
+
+{# Link for the ? icon at the bottom of the page #}
+{% set docsUrl = "https://github.com/a-digital/front/blob/craft3/README.md" %}
+
+{# The title of this CP section #}
+{% set title = "New" %}
+
+{# The URL to this plugin's base CP section #}
+{% set pluginCpUrl = url('front') %}
+
+{# Get a URL to an image in our AssetBundle #}
+{% set iconUrl = view.getAssetManager().getPublishedUrl('@adigital/front/assetbundles/conversationscpsection/dist', true) ~ '/img/Conversations-icon.svg' %}
+
+{% block actionButton %}{% endblock %}
+
+{# The content of the CP Section #}
+{% set content %}
+    <p>To send us a new message or request help with a problem, please complete the form below. You'll receive updates by email, as well as being able to see and reply to messages from the <a href="/{{ craft.app.config.general.cpTrigger }}/front">conversations</a> page.</p>
+
+    <form id="main-form" enctype="multipart/form-data" method="post" accept-charset="UTF-8" data-saveshortcut{% if saveShortcutRedirect is defined %} data-saveshortcut-redirect="{{ saveShortcutRedirect|hash }}"{% endif %} data-confirm-unload novalidate>
+        {{- csrfInput() }}
+        <input type="hidden" name="action" value="front/conversation/create-new">
+        <input type="hidden" name="pluginHandle" value="front">
+
+        {% set tags = craft.front.tags %}
+        {% if tags %}
+            {{ forms.selectField({
+                label: 'Message Type',
+                id: 'tag',
+                name: 'tag',
+                instructions: "Please indicate the type of message you're sending.",
+                options: tags
+            }) }}
+        {% endif %}
+
+        {{ forms.textField({
+            label: 'Subject',
+            instructions: 'Please summarise your message in a few words.',
+            id: 'subject',
+            name: 'subject',
+            value: ''
+        }) }}
+
+        {{ craft.front.redactorField({
+            label: 'Message',
+            instructions: "Please provide as much detail as possible. If you've found an error, please list the steps we need to take to replicate it.",
+            name: 'body',
+            rows: 4,
+            value: ''
+        })|raw }}
+
+        <div class="field">
+            <div class="heading">
+                <label>Attachments</label>
+                <div class="instructions">
+                    <p>Add any relevant files or screenshots</p>
+                </div>
+            </div>
+            <div class="input ltr">
+                <input name="attachments[]" type="file" multiple>
+            </div>
+        </div>
+
+        <input type="submit" class="btn submit" value="{{ 'Send'|t('app') }}">
+    </form>
+{% endset %}
