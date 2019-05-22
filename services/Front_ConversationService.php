@@ -53,7 +53,7 @@ class Front_ConversationService extends BaseApplicationComponent
      *
      * From any other plugin file, call it like this:
      *
-     *     Front::$plugin->conversation->getMailboxById()
+     *     craft()->front_conversation->getMailboxById()
      *
      * @param $id
      * @return mixed
@@ -77,7 +77,7 @@ class Front_ConversationService extends BaseApplicationComponent
      *
      * From any other plugin file, call it like this:
      *
-     *     Front::$plugin->conversation->getConversations()
+     *     craft()->front_conversation->getConversations()
      *
      * @return mixed
      */
@@ -104,7 +104,7 @@ class Front_ConversationService extends BaseApplicationComponent
      *
      * From any other plugin file, call it like this:
      *
-     *     Front::$plugin->conversation->getConversationById()
+     *     craft()->front_conversation->getConversationById()
      *
      * @param $id
      * @return mixed
@@ -121,7 +121,7 @@ class Front_ConversationService extends BaseApplicationComponent
      *
      * From any other plugin file, call it like this:
      *
-     *     Front::$plugin->conversation->getConversationMessagesById()
+     *     craft()->front_conversation->getConversationMessagesById()
      *
      * @param $id
      * @return mixed
@@ -148,7 +148,7 @@ class Front_ConversationService extends BaseApplicationComponent
      *
      * From any other plugin file, call it like this:
      *
-     *     Front::$plugin->conversation->getTags()
+     *     craft()->front_conversation->getTags()
      *
      * @return mixed
      */
@@ -185,14 +185,14 @@ class Front_ConversationService extends BaseApplicationComponent
      *
      * From any other plugin file, call it like this:
      *
-     *     Front::$plugin->conversation->conversationReply()
+     *     craft()->front_conversation->conversationReply()
      *
      * @param $request
      * @return mixed
      */
     public function conversationReply($request)
     {
-        $settings = Front::$plugin->getSettings();
+        $settings = craft()->plugins->getPlugin('front')->getSettings();
         $method = 'inboxes/'.$settings->inbox.'/imported_messages';
         $mailbox = self::getMailboxById($settings->inbox);
         $userId = '';
@@ -263,7 +263,7 @@ class Front_ConversationService extends BaseApplicationComponent
      *
      * From any other plugin file, call it like this:
      *
-     *     Front::$plugin->conversation->curlWrap()
+     *     craft()->front_conversation->curlWrap()
      *
      * @param $method
      * @param null $request
@@ -271,7 +271,7 @@ class Front_ConversationService extends BaseApplicationComponent
      */
     public function curlWrap($method, $request = null)
     {
-        $settings = Front::$plugin->getSettings();
+        $settings = craft()->plugins->getPlugin('front')->getSettings();
         $webToken = $settings->jsonWebToken;
 
         $host = 'api2.frontapp.com';
@@ -309,7 +309,7 @@ class Front_ConversationService extends BaseApplicationComponent
      *
      * From any other plugin file, call it like this:
      *
-     *     Front::$plugin->conversation->curlImage()
+     *     craft()->front_conversation->curlImage()
      *
      * @param $method
      * @param $attachments
@@ -318,7 +318,7 @@ class Front_ConversationService extends BaseApplicationComponent
      */
     public function curlImage($method, $attachments, $request = null)
     {
-        $settings = Front::$plugin->getSettings();
+        $settings = craft()->plugins->getPlugin('front')->getSettings();
         $webToken = $settings->jsonWebToken;
 
         $host = 'api2.frontapp.com';
