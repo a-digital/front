@@ -37,7 +37,7 @@ class FrontVariable
      */
     public function mailboxes()
     {
-        return Front::$plugin->conversation->getMailboxes();
+        return craft()->front_conversation->getMailboxes();
     }
 
     /**
@@ -55,7 +55,7 @@ class FrontVariable
      */
     public function conversations()
     {
-        return Front::$plugin->conversation->getConversations();
+        return craft()->front_conversation->getConversations();
     }
 
     /**
@@ -74,7 +74,7 @@ class FrontVariable
      */
     public function getConversation($id = null)
     {
-        return Front::$plugin->conversation->getConversationById($id);
+        return craft()->front_conversation->getConversationById($id);
     }
 
     /**
@@ -93,7 +93,7 @@ class FrontVariable
      */
     public function getConversationMessages($id = null)
     {
-        return Front::$plugin->conversation->getConversationMessagesById($id);
+        return craft()->front_conversation->getConversationMessagesById($id);
     }
 
     /**
@@ -111,7 +111,7 @@ class FrontVariable
      */
     public function tags()
     {
-        return Front::$plugin->conversation->getTags();
+        return craft()->front_conversation->getTags();
     }
 
     /**
