@@ -1,0 +1,26 @@
+{#
+/**
+ * Front plugin for Craft CMS
+ *
+ * Front_ConversationsWidget Settings
+ *
+ * @author    A Digital
+ * @copyright Copyright (c) 2019 A Digital
+ * @link      https://adigital.agency
+ * @package   Front
+ * @since     0.0.1
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% includeCssResource "front/css/Front_Style.css" %}
+{% includeJsResource "front/js/Front_Script.js" %}
+
+{{ forms.textField({
+    label: 'Some Setting',
+    instructions: 'Enter some setting here.',
+    id: 'someSetting',
+    name: 'someSetting',
+    value: settings['someSetting']})
+}}

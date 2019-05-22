@@ -1,0 +1,44 @@
+{
+    "name": "adigital/front",
+    "description": "Integration with Front",
+    "type": "craft-plugin",
+    "version": "1.0.5",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "front"
+    ],
+    "support": {
+        "docs": "https://github.com/a-digital/front/blob/craft3/README.md",
+        "issues": "https://github.com/a-digital/front/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "A Digital",
+            "homepage": "https://adigital.agency"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1",
+        "craftcms/redactor": ">=1.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "adigital\\front\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Front",
+        "handle": "front",
+        "hasCpSettings": true,
+        "hasCpSection": true,
+        "changelogUrl": "https://raw.githubusercontent.com/a-digital/front/craft3/CHANGELOG.md",
+        "components": {
+            "conversation": "adigital\\front\\services\\Conversation"
+        },
+        "class": "adigital\\front\\Front"
+    }
+}
