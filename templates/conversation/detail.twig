@@ -16,11 +16,17 @@
 {% extends "_layouts/cp" %}
 {% import "_includes/forms" as forms %}
 
-{% do view.registerAssetBundle("adigital\\front\\assetbundles\\front\\FrontAsset") %}
-{% do view.registerAssetBundle("adigital\\front\\assetbundles\\conversationscpsection\\ConversationsCPSectionAsset") %}
+{% includeCssResource "lib/redactor/redactor.css" %}
+{% includeJsResource "lib/redactor/redactor.js" %}
+
+{% includeCssResource "front/css/Front_Style.css" %}
+{% includeJsResource "front/js/Front_Script.js" %}
 
 {# Link for the ? icon at the bottom of the page #}
-{% set docsUrl = "https://github.com/a-digital/front/blob/craft3/README.md" %}
+{% set docsUrl = "https://github.com/a-digital/front/blob/craft2/README.md" %}
+
+{# The title of this CP section #}
+{% set title = "Conversations" %}
 
 {% set conversation = craft.front.getConversation(conversationId) %}
 
@@ -44,7 +50,7 @@
 {% set pluginCpUrl = url('front') %}
 
 {# Get a URL to an image in our AssetBundle #}
-{% set iconUrl = view.getAssetManager().getPublishedUrl('@adigital/front/assetbundles/conversationscpsection/dist', true) ~ '/img/Conversations-icon.svg' %}
+{% set iconUrl = '/cms/resources/front/icon.svg' %}
 
 {# The content of the CP Section #}
 {% set content %}
@@ -54,7 +60,6 @@
             <td colspan="5">Error: {{ data.error.message|default(data.error.title) }}</td>
         </tr>
     {% endif %}
-    {% set dateTimeFormat = craft.app.locale.dateTimeFormat('short', 'php') %}
     {% set dateTimeFormat = "jS F Y g:i A" %}
     {% for message in data.messages|reverse %}
         <div class="message-container">
@@ -104,13 +109,21 @@
                 <input type="hidden" name="action" value="front/conversation/add-reply">
                 <input type="hidden" name="conversation" value="{{ conversationId }}">
                 <input type="hidden" name="subject" value="{{ conversation.subject }}">
-                {{ craft.front.redactorField({
-                    label: 'Message',
-                    instructions: "Type out your reply in the field below.",
-                    name: 'body',
-                    rows: 4,
-                    value: ''
-                })|raw }}
+                <div class="field">
+                    <div class="heading">
+                        <label>Message</label>
+                        <div class="instructions">
+                            <p>Type out your reply in the field below.</p>
+                        </div>
+                    </div>
+                    <div class="input ltr">
+                        {{ forms.textareaField({
+                            class: 'frontRedactor',
+                            name: 'body',
+                            value: (value is defined) ? value : ''
+                        }) }}
+                    </div>
+                </div>
                 <input type="submit" class="btn submit" value="{{ 'Send'|t('front') }}">
             </form>
         </div>

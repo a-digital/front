@@ -37,4 +37,9 @@ $(document).ready(function(){
     $(".reply-prompt").click(function(){
         $(".recipient-container").parent().parent().removeClass('hidden');
     });
+
+    $(".frontRedactor").redactor({
+        "buttons": ["bold", "italic", "unorderedlist", "orderedlist", "link"],
+        "toolbarFixed": true
+    });
 });
