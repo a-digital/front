@@ -18,7 +18,7 @@ $(document).ready(function(){
         $(this).find('input[name="frontSubmit"]').hide();
         $(this).find('div[name="loadingSpinner"]').show();
         $.ajax({
-            url : '/actions/front/conversation/submit-widget',
+            url : '/actions/front/conversation/submitWidget',
             type: 'POST',
             data : submission,
             processData: false,

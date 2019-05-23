@@ -39,7 +39,7 @@
 
     <form id="main-form" enctype="multipart/form-data" method="post" accept-charset="UTF-8" data-saveshortcut{% if saveShortcutRedirect is defined %} data-saveshortcut-redirect="{{ saveShortcutRedirect|hash }}"{% endif %} data-confirm-unload novalidate>
         {{- csrfInput() }}
-        <input type="hidden" name="action" value="front/conversation/create-new">
+        <input type="hidden" name="action" value="front/conversation/createNew">
         <input type="hidden" name="pluginHandle" value="front">
 
         {% set tags = craft.front.tags %}
