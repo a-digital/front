@@ -44,7 +44,7 @@ class Front_ConversationController extends BaseController
      */
     public function actionIndex()
     {
-        $request = Craft::$app->getRequest();
+        $request = craft()->request;
         $method = $request->getParam('redirect');
         craft()->front_conversation->conversationReply($request);
         $method = $request->getParam('success');
@@ -52,38 +52,38 @@ class Front_ConversationController extends BaseController
     }
 
     /**
-     * Handle a request going to our plugin's submitWidget action URL, e.g.: actions/front/submit-widget
+     * Handle a request going to our plugin's submitWidget action URL, e.g.: actions/front/submitWidget
      *
      * @return string
      */
     public function actionSubmitWidget(): string
     {
-        $request = Craft::$app->getRequest();
+        $request = craft()->request;
         craft()->front_conversation->conversationReply($request);
         $response = '<p>Success:</p><p>Thank you for submitting a message with us. You can <a href="/'.craft()->config->get("cpTrigger").'/front" target="_blank">view your conversations here</a> and we shall get back to you shortly with a response.</p>';
         return $response;
     }
 
     /**
-     * Handle a request going to our plugin's createNew action URL, e.g.: actions/front/create-new
+     * Handle a request going to our plugin's createNew action URL, e.g.: actions/front/createNew
      *
      * @return mixed
      */
     public function actionCreateNew()
     {
-        $request = Craft::$app->getRequest();
+        $request = craft()->request;
         craft()->front_conversation->conversationReply($request);
         return $this->redirect("/".craft()->config->get("cpTrigger")."/front");
     }
 
     /**
-     * Handle a request going to our plugin's addReply action URL, e.g.: actions/front/add-reply
+     * Handle a request going to our plugin's addReply action URL, e.g.: actions/front/addReply
      *
      * @return mixed
      */
     public function actionAddReply()
     {
-        $request = Craft::$app->getRequest();
+        $request = craft()->request;
         $id = $request->getParam('conversation');
         craft()->front_conversation->conversationReply($request);
         return $this->redirect("/".craft()->config->get("cpTrigger")."/front/conversation/".$id);
