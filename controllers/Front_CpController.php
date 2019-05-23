@@ -59,12 +59,15 @@ class Front_CpController extends BaseController
     /**
      * Handle a request going to our plugin's index action URL, e.g.: actions/front/conversation
      *
-     * @param string $subSection
-     * @return
+     * @param array $variables
+     * @return mixed
      */
-    public function actionConversation(string $subSection = 'overview')
+    public function actionConversation(array $variables = array())
     {
-        $variables = [];
+        if (empty($variables['conversationId'])) {
+            $variables['conversationId'] = 'overview';
+        }
+
         $variables['crumbs'] = [
             [
                 'label' => "Front",
@@ -75,8 +78,6 @@ class Front_CpController extends BaseController
                 'url' => UrlHelper::getCpUrl('front')
             ]
         ];
-
-        $variables["conversationId"] = $subSection;
 
         return $this->renderTemplate('front/conversation/detail', $variables);
     }
