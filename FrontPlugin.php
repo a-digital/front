@@ -148,7 +148,7 @@ class FrontPlugin extends BasePlugin
         return array(
             'front' => array('action' => 'front/cp'),
             'front/conversation/new' => array('action' => 'front/cp/new-conversation'),
-            'front/conversation/(?P<subSection>\w+)' => array('action' => 'front/cp/conversation'),
+            'front/conversation/(?P<conversationId>\w+)' => array('action' => 'front/cp/conversation'),
         );
     }
 
