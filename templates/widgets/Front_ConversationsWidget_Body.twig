@@ -14,7 +14,7 @@
 #}
 
 {% import "_includes/forms" as forms %}
-{% set iconUrl = view.getAssetManager().getPublishedUrl('@adigital/front/assetbundles/conversationswidget/dist', true) ~ '/img/Conversations-icon.svg' %}
+{% set iconUrl = '/cms/resources/front/icon.svg' %}
 
 <div>
     <div class="widget-icon">
@@ -22,13 +22,11 @@
     </div>
     <div class="widget-header">
         <p>To send us a new message or request help with a problem, please complete the form below.</p>
-        <p>You'll receive updates by email, as well as being able to see and reply to messages from the <a href="/{{ craft.app.config.general.cpTrigger }}/front">conversations</a> page.</p>
+        <p>You'll receive updates by email, as well as being able to see and reply to messages from the <a href="/{{ craft.config.cpTrigger }}/front">conversations</a> page.</p>
     </div>
 </div>
 
 <form id="frontWidgetForm" enctype="multipart/form-data" method="post" accept-charset="UTF-8">
-    {{ csrfInput() }}
-
     {% set tags = craft.front.tags %}
     {% if tags %}
         {{ forms.selectField({
@@ -47,13 +45,21 @@
         value: ''
     }) }}
 
-    {{ craft.front.redactorField({
-        label: 'Message',
-        instructions: "Please provide as much detail as possible. If you've found an error, please list the steps we need to take to replicate it.",
-        name: 'body',
-        rows: 4,
-        value: ''
-    })|raw }}
+    <div class="field">
+        <div class="heading">
+            <label>Message</label>
+            <div class="instructions">
+                <p>Please provide as much detail as possible. If you've found an error, please list the steps we need to take to replicate it.</p>
+            </div>
+        </div>
+        <div class="input ltr">
+            {{ forms.textareaField({
+                class: 'frontRedactor',
+                name: 'body',
+                value: (value is defined) ? value : ''
+            }) }}
+        </div>
+    </div>
 
     <div class="field">
         <div class="heading">
