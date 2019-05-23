@@ -26,6 +26,7 @@
  */
 
 namespace Craft;
+use Craft\UrlHelper;
 
 class Front_CpController extends BaseController
 {
@@ -48,7 +49,7 @@ class Front_CpController extends BaseController
         $variables['crumbs'] = [
             [
                 'label' => "Front",
-                'url' => UrlHelper::cpUrl('front')
+                'url' => UrlHelper::getCpUrl('front')
             ]
         ];
 
@@ -67,11 +68,11 @@ class Front_CpController extends BaseController
         $variables['crumbs'] = [
             [
                 'label' => "Front",
-                'url' => UrlHelper::cpUrl('front')
+                'url' => UrlHelper::getCpUrl('front')
             ],
             [
                 'label' => "Conversations",
-                'url' => UrlHelper::cpUrl('front')
+                'url' => UrlHelper::getCpUrl('front')
             ]
         ];
 
@@ -91,11 +92,11 @@ class Front_CpController extends BaseController
         $variables['crumbs'] = [
             [
                 'label' => "Front",
-                'url' => UrlHelper::cpUrl('front')
+                'url' => UrlHelper::getCpUrl('front')
             ],
             [
                 'label' => "Conversations",
-                'url' => UrlHelper::cpUrl('front')
+                'url' => UrlHelper::getCpUrl('front')
             ]
         ];
 
