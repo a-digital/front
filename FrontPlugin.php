@@ -141,6 +141,18 @@ class FrontPlugin extends BasePlugin
     }
 
     /**
+     * @return array
+     */
+    public function registerCpRoutes(): array
+    {
+        return array(
+            'front' => array('action' => 'front/cp'),
+            'front/conversation/new' => array('action' => 'front/cp/new-conversation'),
+            'front/conversation/(?P<subSection>\w+)' => array('action' => 'front/cp/conversation'),
+        );
+    }
+
+    /**
      * Called right before your plugin’s row gets stored in the plugins database table, and tables have been created
      * for it based on its records.
      *
