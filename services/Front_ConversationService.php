@@ -157,7 +157,7 @@ class Front_ConversationService extends BaseApplicationComponent
         // get from config file
         // return to template
 
-        $config = Craft::$app->getConfig()->getConfigFromFile("front");
+        $config = craft()->config->get("tags", "front");
         if (!$config) {
             return false;
         }
@@ -169,7 +169,7 @@ class Front_ConversationService extends BaseApplicationComponent
             ]
         ];
 
-        foreach($config['tags'] as $tag) {
+        foreach($config as $tag) {
             $options[] = [
                 'label' => $tag,
                 'value' => $tag
