@@ -194,7 +194,7 @@ class Front_ConversationService extends BaseApplicationComponent
     {
         $settings = craft()->plugins->getPlugin('front')->getSettings();
         $method = 'inboxes/'.$settings->inbox.'/imported_messages';
-        $mailbox = self::getMailboxById($settings->inbox);
+        $mailbox = $this->getMailboxById($settings->inbox);
         $userId = '';
         $userEmail = '';
         $userFirstName = '';
