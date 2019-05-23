@@ -27,7 +27,7 @@ class Front_ConversationsWidget extends BaseWidget
      */
     public function getName()
     {
-        return Craft::t('Front_Conversations');
+        return 'Front Conversations';
     }
     /**
      * getBodyHtml() does just what it says: it returns your widget’s body HTML. We recommend that you store the
