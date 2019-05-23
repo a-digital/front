@@ -199,10 +199,10 @@ class Front_ConversationService extends BaseApplicationComponent
         $userEmail = '';
         $userFirstName = '';
         $userLastName = '';
-        if (Craft::$app->user->identity) {
-            $userId = Craft::$app->user->identity->id;
-            $userEmail = Craft::$app->user->identity->email;
-            $userName = Craft::$app->user->identity->firstName.' '.Craft::$app->user->identity->lastName;
+        if (craft()->userSession->getUser()) {
+            $userId = craft()->userSession->getUser()->id;
+            $userEmail = craft()->userSession->getUser()->email;
+            $userName = craft()->userSession->getUser()->firstName.' '.craft()->userSession->getUser()->lastName;
         } else {
             $userId = 'guest';
             $userEmail = $request->getParam('email');
