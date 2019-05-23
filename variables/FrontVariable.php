@@ -113,38 +113,4 @@ class FrontVariable
     {
         return craft()->front_conversation->getTags();
     }
-
-    /**
-     * Whatever you want to output to a Twig template can go into a Variable method.
-     * You can have as many variable functions as you want.  From any Twig template,
-     * call it like this:
-     *
-     *     {{ craft.front.tags }}
-     *
-     * Or, if your variable requires parameters from Twig:
-     *
-     *     {{ craft.front.tags(twigValue) }}
-     *
-     * @param null $options
-     * @return string
-     */
-    public function redactorField($options = null): string
-    {
-        $field = new Field;
-        $field->handle = $options['name'];
-        $field->redactorConfig = 'Front.json';
-        $redactorField = $field->getInputHtml($options['value']);
-
-        return '<div class="field">
-            <div class="heading">
-                <label>'.$options['label'].'</label>
-                <div class="instructions">
-                    <p>'.$options['instructions'].'</p>
-                </div>
-            </div>
-            <div class="input ltr">
-                '.$redactorField.'
-            </div>
-        </div>';
-    }
 }
