@@ -61,7 +61,8 @@ class Front_ConversationController extends BaseController
         $request = craft()->request;
         craft()->front_conversation->conversationReply($request);
         $response = '<p>Success:</p><p>Thank you for submitting a message with us. You can <a href="/'.craft()->config->get("cpTrigger").'/front" target="_blank">view your conversations here</a> and we shall get back to you shortly with a response.</p>';
-        return $response;
+        echo $response;
+        exit;
     }
 
     /**
