@@ -45,8 +45,6 @@
     </ul>
     <p>To view messages within a conversation or add a reply, just click on the subject to open it. If you wish to create a new conversation, this can be done using the button at the top right of the page.</p>
 
-    {% set dateTimeFormat = craft.i18n.getLocaleData().getDateTimeFormat() %}
-
     <div class="tableview">
         <table class="data fullwidth collapsible">
             <thead>
@@ -97,7 +95,7 @@
                             {{ tag.name }}{% if not loop.last %}, {% endif %}
                         {% endfor %}
                     </td>
-                    <td data-title="Last Updated" data-attribute="lastUpdated">{{ conversation.last_message.created_at|split(".")[0]|date(dateTimeFormat) }}</td>
+                    <td data-title="Last Updated" data-attribute="lastUpdated">{{ conversation.last_message.created_at|split(".")[0]|date("j/n/Y, H:i") }}</td>
                 </tr>
             {% endfor %}
             </tbody>
