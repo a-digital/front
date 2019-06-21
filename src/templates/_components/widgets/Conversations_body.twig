@@ -15,10 +15,13 @@
 
 {% import "_includes/forms" as forms %}
 {% set iconUrl = view.getAssetManager().getPublishedUrl('@adigital/front/assetbundles/conversationswidget/dist', true) ~ '/img/Conversations-icon.svg' %}
+{% if settings['supportCompanyLogo']|length %}
+  {% set iconUrl = craft.assets.id(settings['supportCompanyLogo'][0]).one().url %}
+{% endif %}
 
 <div>
     <div class="widget-icon">
-        <img src="{{ iconUrl }}" height="50" width="50" />
+        <img src="{{ iconUrl }}" width="75" height="auto" />
     </div>
     <div class="widget-header">
         <p>To send us a new message or request help with a problem, please complete the form below.</p>
