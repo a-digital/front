@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.6 - 2019-06-21
+### Added
+- Customisable plugin name in the sidebar with a default value of Support
+- Upload functionality for company logo to appear in the conversations widget
+
 ## 1.0.5 - 2018-12-17
 ### Fixed
 - Found an error in widget submissions related to the cpTrigger config setting
