@@ -86,6 +86,7 @@ class Front extends Plugin
     {
         parent::init();
         self::$plugin = $this;
+        $this->name = Front::$plugin->getSettings()->pluginName;
 
         // Register our site routes
         Event::on(
