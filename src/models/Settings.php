@@ -39,6 +39,7 @@ class Settings extends Model
      *
      * @var string
      */
+    public $pluginName = 'Support';
     public $supportCompanyLogo = [];
     public $jsonWebToken = '';
     public $inbox = '';
@@ -59,6 +60,8 @@ class Settings extends Model
     public function rules()
     {
         return [
+            ['pluginName', 'string'],
+            ['pluginName', 'default', 'value' => 'Support'],
             ['jsonWebToken', 'string'],
             ['jsonWebToken', 'default', 'value' => ''],
             ['inbox', 'string'],

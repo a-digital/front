@@ -17,6 +17,14 @@
 
 {% do view.registerAssetBundle("adigital\\front\\assetbundles\\front\\FrontAsset") %}
 
+{{ forms.textField({
+    label: 'Plugin Name',
+    instructions: 'The name to be used in the control panels sidebar.',
+    id: 'pluginName',
+    name: 'pluginName',
+    value: settings['pluginName']
+}) }}
+
 {% set asset = [] %}
 {% if settings['supportCompanyLogo']|length %}
   {% set asset = craft.assets.id(settings['supportCompanyLogo'][0]).one() %}
