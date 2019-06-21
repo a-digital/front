@@ -39,6 +39,7 @@ class Settings extends Model
      *
      * @var string
      */
+    public $supportCompanyLogo = [];
     public $jsonWebToken = '';
     public $inbox = '';
 
