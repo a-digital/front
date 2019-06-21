@@ -79,7 +79,10 @@ class Conversations extends Widget
         Craft::$app->getView()->registerAssetBundle(ConversationsWidgetAsset::class);
 
         return Craft::$app->getView()->renderTemplate(
-            'front/_components/widgets/Conversations_body'
+            'front/_components/widgets/Conversations_body',
+            [
+                'settings' => Front::$plugin->getSettings()
+            ]
         );
     }
 }
