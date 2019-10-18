@@ -21,3 +21,11 @@
     width: 78%;
     vertical-align: top;
 }
+
+.footer-widget-icon {
+    margin-top: 15px;
+}
+
+.footer-widget-icon img {
+    margin-bottom: -5px;
+}

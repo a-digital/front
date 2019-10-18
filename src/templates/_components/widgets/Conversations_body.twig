@@ -15,15 +15,18 @@
 
 {% import "_includes/forms" as forms %}
 {% set iconUrl = view.getAssetManager().getPublishedUrl('@adigital/front/assetbundles/conversationswidget/dist', true) ~ '/img/Conversations-icon.svg' %}
+{% set assetUrl = null %}
 {% if settings['supportCompanyLogo']|length %}
-  {% set iconUrl = craft.assets.id(settings['supportCompanyLogo'][0]).one().url %}
+  {% set assetUrl = craft.assets.id(settings['supportCompanyLogo'][0]).one().url %}
 {% endif %}
 
 <div>
-    <div class="widget-icon">
-        <img src="{{ iconUrl }}" width="75" height="auto" />
-    </div>
-    <div class="widget-header">
+    {% if assetUrl %}
+      <div class="widget-icon">
+          <img src="{{ assetUrl }}" width="75" height="auto" />
+      </div>
+    {% endif %}
+    <div {% if assetUrl %}class="widget-header"{% endif %}>
         <p>To send us a new message or request help with a problem, please complete the form below.</p>
         <p>You'll receive updates by email, as well as being able to see and reply to messages from the <a href="/{{ craft.app.config.general.cpTrigger }}/front">conversations</a> page.</p>
     </div>
@@ -72,4 +75,8 @@
 
     <input type="submit" class="btn submit" name="frontSubmit" value="{{ 'Send'|t }}" />
     <div name="loadingSpinner" class="loadingSpinner"></div>
+    <div class="footer-widget-icon">
+        <img src="{{ iconUrl }}" width="20" height="auto"/>
+        Powered by <a href="https://frontapp.com" target="_blank">Front App</a>
+    </div>
 </form>
