@@ -27,7 +27,7 @@
 
 {% set asset = [] %}
 {% if settings['supportCompanyLogo']|length %}
-  {% set asset = craft.assets.id(settings['supportCompanyLogo'][0]).one() %}
+  {% set asset = asset|merge([craft.assets.id(settings['supportCompanyLogo'][0]).one()]) %}
 {% endif %}
 
 {{ forms.elementSelectfield({
@@ -36,7 +36,7 @@
     id: "supportCompanyLogo",
     name: "supportCompanyLogo",
     viewMode: "large",
-    elements: [asset],
+    elements: asset,
     elementType: 'craft\\elements\\Asset',
     criteria: {
         kind: ["image"],
