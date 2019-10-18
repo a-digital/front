@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.7 - 2019-10-18
+### Fixed
+- Empty image field in settings was causing errors
+
+### Changed
+- Front logo now less prominent on the widget and sits at the top bottom rather than the top
+- User defined image from the settings now appears at the top of the widget and doesn't replace fronts logo anymore
+
 ## 1.0.6 - 2019-06-21
 ### Added
 - Customisable plugin name in the sidebar with a default value of Support
