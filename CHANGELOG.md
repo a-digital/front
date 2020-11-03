@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.7 - 2020-11-03
+### Fixed
+- Composer 2 compatibility - Asset bundle PSR-4 autoloading standard
+
 ## 1.0.7 - 2019-10-18
 ### Fixed
 - Empty image field in settings was causing errors
