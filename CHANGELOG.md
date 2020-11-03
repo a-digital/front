@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.0.7 - 2020-11-03
+## 1.0.9 - 2020-11-03
+### Changed
+- Updated assetbundle registration in cp templates
+
+## 1.0.8 - 2020-11-03
 ### Fixed
 - Composer 2 compatibility - Asset bundle PSR-4 autoloading standard
 
