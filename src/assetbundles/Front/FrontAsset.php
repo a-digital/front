@@ -43,7 +43,7 @@ class FrontAsset extends AssetBundle
     public function init()
     {
         // define the path that your publishable resources live
-        $this->sourcePath = "@adigital/front/assetbundles/front/dist";
+        $this->sourcePath = "@adigital/front/assetbundles/Front/dist";
 
         // define the dependencies
         $this->depends = [
